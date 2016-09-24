@@ -1,0 +1,213 @@
+// Place all the styles related to the main controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body{
+  //s  background: #ccc;
+  min-width: 720px;
+  margin: 0 auto;
+  
+}
+
+.wrapper {
+   width: 720px;
+   margin: 0 auto;
+
+}
+
+
+h1{
+  
+}
+
+.menu{
+    background: #507299;
+   height: 50px;
+    //padding: 20px 0;
+}
+
+.menu_text{
+    float: left;
+    line-height: 50px;
+     color: white;
+         padding-left: 15px;
+}
+
+
+.menu_button{
+    height: 50px;
+    line-height: 50px;
+    float: right;
+    color: white;
+     padding-right: 15px;
+   
+}
+
+.a_button{
+  
+    
+    background-color: #507299;
+     color: white;
+   
+    padding: 9px 20px;
+    border: 1px solid white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: all  ease-in-out 200ms;
+    
+    
+}
+
+.a_button:hover{
+     background: white;
+    color: #507299;
+     
+}
+
+.idea{
+   padding-top:1px;
+    
+}
+
+.cf:before,
+.cf:after{
+    content: " ";
+    display: table
+}
+
+.cf:after {
+    clear: both;
+}
+
+
+// форма добавления идеи
+
+#add_idea_button, .add_post_button {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
+    color: #507299;
+   // background-color: lime;
+    margin: 10px 0;
+    border: 1px solid #507299;
+     border-radius: 3px;
+  transition: all  ease-in-out 200ms;  
+    
+}
+#add_idea_button:hover, .add_post_button:hover{
+    //border: 1px solid #507299;
+     background-color: #507299;
+     color: white;
+     
+    
+}
+
+#add_idea_form{
+    display: none;
+}
+
+input, textarea, label{
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.one_idea{
+    margin-bottom: 15px;
+    background-color: #eee;
+    border: 1px solid transparent;
+    padding: 0 15px 10px 15px;
+}
+
+.joined{
+    height:50px;
+    line-height:50px;
+    float:left;
+    
+}
+
+.a_joined{
+    color: #507299;
+    text-decoration:none;
+    padding: 10px 10px 10px 0;
+}
+
+.join{
+    float:right;
+    height:50px;
+    line-height:50px;
+}
+
+.join_status{
+   // border-top: 1px #ccc solid;
+}
+
+.a_join{
+   // display:inline-block;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #507299;
+    color: #507299;
+    text-decoration:none;
+    border-radius: 3px;
+    transition: all  ease-in-out 200ms;
+    
+}
+
+.a_join:hover{
+    background-color: #507299;
+    color:  white;
+    
+    
+}
+
+.sususers{
+    border-top: 1px #ccc solid;
+    padding-top: 10px;
+    display:none;
+}
+
+label{
+    display:block;
+    padding: 15px 15px 5px 15px;
+}
+
+input{
+    line-height:30px;
+    padding: 0px 15px 0px 15px;
+    border: 1px #ccc solid;
+}
+
+textarea{
+   border: 1px #ccc solid;
+    padding: 10px 15px 10px 15px;
+}
+
+.form_wrapper{
+     width: 98%;
+    margin: 0 auto;
+}
+
+.youtube{
+width: 690px; 
+height: 359px; 
+background-position: center center; 
+background-size: 100% auto;
+cursor:pointer;
+position:relative;
+}
+
+iframe{
+width: 690px; 
+height: 388px; 
+    
+}
+
+.yt{
+    width:65px;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

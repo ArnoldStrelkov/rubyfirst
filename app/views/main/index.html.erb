@@ -1,0 +1,125 @@
+
+<div class="menu">
+    
+
+<div class="wrapper"  >
+    
+    <div class="cf">
+        <div class="menu_text">Поиск единомышленников </div>
+        <div class="menu_button">
+            <% if @current_user%>
+            <%= @current_user.name %>
+             <% else %>
+            <a  class="a_button" href='/auth/vkontakte'>Войти через вк</a></div>
+        <% end %>
+     </div>  
+    </div>
+</div>    
+    
+<div class="add_idea ">
+      <div class="wrapper"  > 
+      
+      <% if @current_user%>
+      <div id="add_idea_button">добавить идею</div>
+      <% end %>
+      <div id="add_idea_form">
+          <form method="POST" action="/api/idea/create" class="ajax_form idea-form" id="idea-form" >
+              <div class="form_wrapper">
+  
+                <label >Заголовок</label> 
+                <input name="header" type="text" class="form-control" placeholder="">
+                
+                <label >Текст</label>
+                <textarea name="body" type="text " rows="10" class="form-control"></textarea>
+                
+               
+               <label >Видео</label> 
+                <input name="video" type="text" class="form-control" 
+                placeholder="например: https://www.youtube.com/watch?v=maX7jD6vGio">
+                <br>
+              </div> 
+		<!--	 <button type="submit" class="add_post_button">Отправить</button> -->
+		<div class="add_post_button">Отправить</div>
+                   
+            </form>
+          
+          
+          
+          
+          </div>
+      
+      
+                    
+      </div>
+</div>   
+   
+    
+<div class="idea ">
+      <div class="wrapper"  >  
+      
+      <div class="new"> </div>
+      
+      
+      <% for idea in @ideas %>
+      <div class="one_idea">
+          
+            <h2><%= idea.header%></h1>
+            
+           <% if !idea.video.to_s.empty? %>
+            
+            <div class="youtube" id="<%= idea.video.split('?v=')[1] %>"  >
+                <%= image_tag "yt.png", class: "yt" %>
+            </div>
+        
+        <% end%>
+            
+             <p><%= idea.body %></p>
+      
+      <div class="join_status cf">
+          <div class="joined">
+               <% count = FollowIdea.where(idea_id: idea).count %>
+                <% unless count == 0 %>
+              <a class="a_joined" href="/sususers/<%= idea.id %>">
+               
+               присоеденилось: <%= count %> 
+               </a>
+               <% end %>
+               </div>
+          <div class="join"> 
+          
+          <% if FollowIdea.where(user_id: @current_user, idea_id: idea).empty? %>
+          <a class="a_join" 
+                  <% if @current_user %>
+                  href="/susc/<%= idea.id %>"
+                  <% else %>
+                  href='/auth/vkontakte'
+                  <% end %>
+          >присоедениться</a>
+          <% else%>
+          вы присоеденились
+          <% end %>
+          </div>
+          
+      </div>
+      <div class="sususers">
+         <% 
+         count = idea.users.count
+         idea.users.each.with_index do |user, index| %>
+         <%= user.name%><%= ", " unless index == count - 1 %>
+         
+        
+         <% end %>
+      </div>
+      
+      </div>
+      <%end%>
+      
+      </div>
+      
+</div>
+    
+    
+    
+
+
+
