@@ -4,17 +4,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :check_login
   
-  
-  
   private
   
   def check_login
    
-    
     @current_user ||= User.where(id: session[:user_id]).first
     
   end  
-  
-  
   
 end

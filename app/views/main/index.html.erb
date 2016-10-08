@@ -1,121 +1,97 @@
 
 <div class="menu">
-    
-
-<div class="wrapper"  >
-    
-    <div class="cf">
-        <div class="menu_text">Поиск единомышленников </div>
-        <div class="menu_button">
-            <% if @current_user%>
-            <%= @current_user.name %>
-             <% else %>
-            <a  class="a_button" href='/auth/vkontakte'>Войти через вк</a></div>
-        <% end %>
-     </div>  
+    <div class="wrapper"  >
+      <div class="cf">
+            <div class="menu_text">Поиск единомышленников </div>
+            <div class="menu_button">
+                <% if @current_user%>
+                <%= @current_user.name %>
+                 <% else %>
+                <a  class="a_button" href='/auth/vkontakte'>Войти через вк</a></div>
+            <% end %>
+         </div>  
     </div>
 </div>    
     
-<div class="add_idea ">
-      <div class="wrapper"  > 
-      
-      <% if @current_user%>
-      <div id="add_idea_button">добавить идею</div>
-      <% end %>
-      <div id="add_idea_form">
-          <form method="POST" action="/api/idea/create" class="ajax_form idea-form" id="idea-form" >
-              <div class="form_wrapper">
-  
-                <label >Заголовок</label> 
-                <input name="header" type="text" class="form-control" placeholder="">
-                
-                <label >Текст</label>
-                <textarea name="body" type="text " rows="10" class="form-control"></textarea>
-                
-               
-               <label >Видео</label> 
-                <input name="video" type="text" class="form-control" 
-                placeholder="например: https://www.youtube.com/watch?v=maX7jD6vGio">
-                <br>
-              </div> 
-		<!--	 <button type="submit" class="add_post_button">Отправить</button> -->
-		<div class="add_post_button">Отправить</div>
-                   
+<div class="add_idea">
+    <div class="wrapper">
+        <%if @current_user%>
+        <div id="add_idea_button">
+            добавить идею
+        </div><%end %>
+        <div id="add_idea_form">
+            <form action="/api/new_idea" class="" id="idea-form" method="post"
+            name="idea-form">
+                <div class="form_wrapper">
+                    <label>Заголовок</label>
+                    <input class="form-control" name="header" placeholder="" type="text">
+                    <label>Текст</label> 
+                    <textarea class="form-control" name="body" rows="10"></textarea>
+                    <input name= "authenticity_token" type="hidden" 
+                    value="<%= form_authenticity_token %>">
+                    <label>Видео</label> 
+                    <input class="form-control" name="video" placeholder=
+                    "например: https://www.youtube.com/ watch?v=maX7jD6vGio" type="text">
+                </div>
+                <div id="add_post_button">
+                    Отправить
+                </div>
             </form>
-          
-          
-          
-          
-          </div>
-      
-      
-                    
-      </div>
+        </div>
+    </div>
 </div>   
    
     
-<div class="idea ">
-      <div class="wrapper"  >  
+<div class="idea">
+    <div class="wrapper">
       
-      <div class="new"> </div>
-      
-      
-      <% for idea in @ideas %>
-      <div class="one_idea">
-          
-            <h2><%= idea.header%></h1>
+        
+        
+        <% for idea in @ideas %>
+        <div class="one_idea">
             
-           <% if !idea.video.to_s.empty? %>
             
-            <div class="youtube" id="<%= idea.video.split('?v=')[1] %>"  >
-                <%= image_tag "yt.png", class: "yt" %>
+            
+            
+            <h2><%= idea.header%></h2>
+                <% unless idea.video.to_s.empty? %>
+                <div class="youtube" id="<%= idea.video.split('?v=')[1] %>">
+                    <%= image_tag "yt.png", class: "yt" %>
+                </div>
+                <% end %>
+                
+            <p><%= h(idea.body).gsub("\n", "<br>").html_safe %></p>
+            
+            <div class="join_status cf">
+                <div class="joined">
+                    <% count = FollowIdea.where(idea_id: idea).count %>
+                    <% unless count == 0 %>
+                        <a class="a_joined" href="">присоединилось:
+                    <%= count %></a> 
+                    <% end %>
+                </div>
+                <div class="join">
+                    <% if FollowIdea.where(user_id: @current_user, idea_id: idea).empty? %>
+                        <% if  @current_user%>
+                            <a class="a_join" href='/susc/<%= idea.id %>'>присоединиться</a> 
+                        <% else %>
+                            <a class="a_join" href='/auth/vkontakte'>присоединиться</a>
+                        <% end %>
+                        
+                    <% else %> 
+                        вы присоединились
+                    <% end %>
+                </div>
             </div>
-        
-        <% end%>
             
-             <p><%= idea.body %></p>
-      
-      <div class="join_status cf">
-          <div class="joined">
-               <% count = FollowIdea.where(idea_id: idea).count %>
-                <% unless count == 0 %>
-              <a class="a_joined" href="/sususers/<%= idea.id %>">
-               
-               присоеденилось: <%= count %> 
-               </a>
-               <% end %>
-               </div>
-          <div class="join"> 
-          
-          <% if FollowIdea.where(user_id: @current_user, idea_id: idea).empty? %>
-          <a class="a_join" 
-                  <% if @current_user %>
-                  href="/susc/<%= idea.id %>"
-                  <% else %>
-                  href='/auth/vkontakte'
-                  <% end %>
-          >присоедениться</a>
-          <% else%>
-          вы присоеденились
-          <% end %>
-          </div>
-          
-      </div>
-      <div class="sususers">
-         <% 
-         count = idea.users.count
-         idea.users.each.with_index do |user, index| %>
-         <%= user.name%><%= ", " unless index == count - 1 %>
-         
-        
-         <% end %>
-      </div>
-      
-      </div>
-      <%end%>
-      
-      </div>
-      
+            <div class="sususers">
+                <% idea.users.each.with_index do |user, index| %> 
+                <a class="" href="https://vk.com/id<%=user.uid%>"><%= user.name%></a><span>, </span>
+                <% end %>
+            </div>
+        </div>
+        <% end %>
+    </div>
 </div>
     
     
