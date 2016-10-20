@@ -12,6 +12,7 @@ Rails.application.routes.draw do
    get '/auth/:provider/callback', to: 'api#set_session'
    get '/exit', to: 'api#exit'
    get '/susc/:id', to: 'api#susc'
+   get '/amaz', to: 'main#amaz'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
