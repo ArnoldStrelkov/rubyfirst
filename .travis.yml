@@ -9,3 +9,5 @@ script:
   - bundle exec rake
 before_script:
   - psql -c 'create database paymail_test' -U postgres
+  
+  
