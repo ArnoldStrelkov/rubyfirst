@@ -9,6 +9,11 @@
                  <% else %>
                 <a  class="a_button" href='/auth/vkontakte'>Войти через вк</a></div>
             <% end %>
+                <div class="">
+                <a id="toggle-nav" class="right">
+                <span></span> <span></span> <span></span> 
+                </a>
+                </div>
          </div>  
     </div>
 </div>    
@@ -44,7 +49,69 @@
     
 <div class="idea">
     <div class="wrapper">
+        <br>
+        <pre><code class="javascript">
+responsive : {
+    // breakpoint from 0 up
+    0 : {
+        option1 : value,
+        option2 : value,
+        ...
+    },
+    // breakpoint from 480 up
+    480 : {
+        option1 : value,
+        option2 : value,
+        ...
+    },
+    // breakpoint from 768 up
+    768 : {
+        option1 : value,
+        option2 : value,
+        ...
+    }
+}
+</code></pre>
       
+<br>
+        <pre><code class="ruby">
+class ApiController < ApplicationController
+  
+  
+  def new_idea
+   @idea = Idea.create(header: params[:header], body: params[:body], video: params[:video], user_id: @current_user.id)
+   redirect_to root_url
+  end
+  
+  def set_session
+      
+    req = request.env['omniauth.auth']
+    user = User.where(provider: req.provider, uid: req.uid).first 
+    
+    unless user
+      user =  User.create(name: req.info.name, provider: req.provider, uid: req.uid)
+    end
+    
+    session[:user_id] = user.id
+    redirect_to root_url
+  end 
+  
+  def exit
+     session[:user_id] = nil
+     redirect_to root_url
+  end 
+  
+  
+  def susc
+    i = Idea.find(params[:id])
+    @current_user.follow_ideas.create(idea: i)
+    redirect_to root_url
+  end  
+  
+  
+end
+
+</code></pre>     
         
         
         <% for idea in @ideas %>

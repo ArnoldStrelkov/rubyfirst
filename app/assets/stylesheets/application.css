@@ -14,3 +14,12 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+    
+    font-family: "Lato","Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1.5;
+    
+}

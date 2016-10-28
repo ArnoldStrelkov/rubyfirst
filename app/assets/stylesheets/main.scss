@@ -205,3 +205,21 @@ iframe{
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+#toggle-nav {
+    width: 2rem;
+    display: block;
+    margin: 1.5rem 0 1.2rem 0rem;
+}
+
+#toggle-nav span {
+    width: 100%;
+    height: 0.25rem;
+    margin-bottom: 0.3rem;
+    background: #FFF;
+    display: block;
+}
+
+.right {
+    float: right !important;
+}
